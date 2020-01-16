@@ -1,0 +1,50 @@
+title "FFQKYPRQEYGKAF-UHFFFAOYSA-L"
+start FFQKYPRQEYGKAF-UHFFFAOYSA-L
+
+memory global 1600 mb heap 100 mb stack 600 mb
+
+permanent_dir /dtemp/emslc51198/Comp_chem_dG/Joshi/resources_for_all/testrdkit/FFQKYPRQEYGKAF-UHFFFAOYSA-L/dft
+#scratch_dir /scratch
+
+echo
+print low
+
+charge -2
+geometry noautoz noautosym
+load /dtemp/emslc51198/Comp_chem_dG/Joshi/resources_for_all/testrdkit/FFQKYPRQEYGKAF-UHFFFAOYSA-L/dft/FFQKYPRQEYGKAF-UHFFFAOYSA-L.xyz
+end
+basis
+* library 6-31G*
+end
+
+driver
+ maxiter 500
+xyz FXEUKVKGTKDDIQ-UWVGGRQHSA-M_geom
+end
+
+set lindep:n_dep 0
+
+dft
+  maxiter 500
+  xc b3lyp
+  disp vdw 3
+  mulliken
+  print "mulliken ao"
+  print "final vectors analysis"
+end
+
+task dft optimize ignore
+task dft freq
+
+cosmo
+ dielec 80.4
+ lineq  0
+end
+
+task dft energy
+
+property
+ dipole
+end
+
+task dft property

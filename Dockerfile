@@ -67,7 +67,7 @@ ENV     PATH="${NWCHEM_BIN}:$PATH"
 COPY ./nwchem-scripts/test.csv ${NWCHEM_BIN}/
 COPY ./nwchem-scripts/inchi_to_submission.py ${NWCHEM_BIN}/
 COPY ./nwchem-scripts/extract_properties_mulliken_charges_mol2.py ${NWCHEM_BIN}/
-COPY ./nwchem-scripts/read_input.py ${NWCHEM_BIN}/
+COPY ./nwchem-scripts/compound_parsing.py ${NWCHEM_BIN}/
 
 RUN   mkdir ${NWCHEM_SIM_DIR}
 

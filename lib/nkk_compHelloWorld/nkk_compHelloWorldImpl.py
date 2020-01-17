@@ -11,6 +11,7 @@ from rdkit.Chem import AllChem
 from rdkit.Chem import Descriptors
 from csv import DictReader
 from installed_clients.KBaseReportClient import KBaseReport
+from installed_clients.DataFileUtilClient import DataFileUtil 
 
 #END_HEADER
 
@@ -59,54 +60,35 @@ class nkk_compHelloWorld:
         # ctx is the context object
         # return variables are: output
         #BEGIN run_nkk_compHelloWorld
+
         sim_dir = '~/../simulation'
         os.system('ls')
         import pandas as pd
-        print('input:',params['Input_File'])
         
-        # Reads InChI and InChI-key from .csv file
-        #with open(params['Input_File']) as f:
-             #InChI_key = [row["InChI-Key"].split('InChIKey=')[1] for row in DictReader(f)]
-             #InChI_key = [row["id"] for row in DictReader(f)] 
+        # Read inputs from .tsv file
+
         df = pd.read_csv(params['Input_File'], sep ='\t')
-        print(df)
         InChI_key = df['id']
         InChIes = df['structure']
-        print(InChI_key)
-        print(InChIes)
-            #print('InChI_key:',InChI_key)
-        
-#        with open(params['Input_File']) as f:
-#             InChIes   = [row["structure"] for row in DictReader(f)]
-             #print('InChIes: ',InChIes)
 
         import inchi_to_submission as its
         import extract_properties_mulliken_charges_mol2 as mul
        
         its.inchi_to_dft(InChI_key,InChIes)
 
-        #cwd = os.getcwd()
-        #print('Main:',cwd)
         length = len(InChI_key)
-        #print('Before get NumAtoms')
         for i in range(length):
             os.chdir('./'+InChI_key[i]+'/dft')
             file1 = open('nwchem.out', 'r')
-            #print('File1: ',file1)
             nAtoms = mul.getNumberOfAtoms(file1)
-            #print(nAtoms)
             energy = mul.getInternalEnergy0K(file1)
-            #print('Energy:',energy)
             charge =mul.getMullikenCharge(file1,nAtoms)
-            #print('Charge:',charge)
             file1.close()
            
-        
             mul.nAtoms = nAtoms
             mul.E0K = energy
 
             mul.calculate(InChI_key[i])
-
 
         for j in range(length):
             cwd = os.getcwd()
@@ -118,15 +100,7 @@ class nkk_compHelloWorld:
                     for line in IN:
                         out.write(line)
             os.chdir('../..')
-
-
-        os.system('ls')
-        os.system('more Total_Output.txt')
-        
-#        print('InChI_key before calc:',InChI_key)
-#        mul.calculate(InChI_key[0])
-        
-        
+            
         report = KBaseReport(self.callback_url)
         report_info = report.create({'report':{'objects_created':[],
                                                'text_message': params['Input_File'],

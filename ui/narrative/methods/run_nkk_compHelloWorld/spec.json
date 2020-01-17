@@ -1,35 +1,44 @@
 {
     "ver": "0.0.1",
     "authors": [
-        "nkk_comp"
+        "nkk_chem"
     ],
-    "contact": "",
+    "contact": "nkkchem@gmail.com",
     "categories": ["active"],
     "widgets": {
         "input": null,
-        "output": null
+        "output": "no-display"
     },
     "parameters": [ 
         {
-            "id": "InChI_key",
-            "optional": true,
+            "id": "Input_File",
+            "optional": false,
             "advanced": false,
             "allow_multiple": false,
             "default_values": [ "" ],
-            "field_type": "text",
+            "field_type": "dynamic_dropdown",
             "text_options": {
-                "valid_ws_types": [ ]
+                "valid_ws_types": ["" ]
             }
         },
-	{
-            "id": "InChIes",
-            "optional": true,
+        {
+            "id": "calculation_type",
+            "optional": false,
             "advanced": false,
             "allow_multiple": false,
-            "default_values": [ "" ],
-            "field_type": "text",
-            "text_options": {
-                "valid_ws_types": [ ]
+            "default_values": [ "energy" ],
+            "field_type": "dropdown",
+            "dropdown_options": {
+                "options": [
+                    {
+                        "display": "Energy and mol2",
+                        "value": "energy and mol2"
+                    },
+                    {
+                        "display": "Optimization and mol2",
+                        "value": "optimization and mol2"
+                    }
+                ]
             }
         }
     ],
@@ -46,12 +55,12 @@
                     "narrative_system_variable": "workspace_id",
                     "target_property": "workspace_id"
                 },{
-                    "input_parameter": "InChI_key",
-                    "target_property": "InChI_key"
+                    "input_parameter": "Input_File",
+                    "target_property": "Input_File"
                 },{
-		    "input_parameter": "InChIes",
-		    "target_property": "InChIes"
-		}
+                    "input_parameter": "calculation_type",
+                    "target_property": "calculation_type"
+                }
             ],
             "output_mapping": [
                 {

@@ -56,7 +56,7 @@ class nkk_compHelloWorldTest(unittest.TestCase):
     def test_your_method(self):
 
         ret = self.serviceImpl.run_nkk_compHelloWorld(self.ctx, {'workspace_name': self.wsName,
-                                                                 'InChI_key': 'CKFGINPQOCXMAZ-UHFFFAOYSA-N','InChIes':'InChI=1S/CH4O2/c2-1-3/h2-3H,1H2'})
+                                                                 'InChI_key': 'CKFGINPQOCXMAZ-UHFFFAOYSA-N','InChIes':'InChI=1S/H2O/h1H2'})
         print("Output")
         print (ret)
 # def test_special_smiles(self):

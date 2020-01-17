@@ -56,7 +56,7 @@ class nkk_compHelloWorldTest(unittest.TestCase):
     def test_your_method(self):
 
         ret = self.serviceImpl.run_nkk_compHelloWorld(self.ctx, {'workspace_name': self.wsName,
-                                                                 'InChI_key': 'CKFGINPQOCXMAZ-UHFFFAOYSA-N','InChIes':'InChI=1S/H2O/h1H2'})
+                                                                 'Input_File':'test_compounds.tsv','calculation_type':'energy'})
         print("Output")
         print (ret)
 # def test_special_smiles(self):

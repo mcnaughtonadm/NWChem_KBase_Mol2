@@ -24,14 +24,14 @@ suggestions:
 # Configure the display and description of parameters
 #
 parameters :
-    InChI_key :
+    Input_File :
         ui-name : |
             SMILES representation of the molecule
         short-hint : |
             The SMILES stringh or the csv file containing smiles strings 
         long-hint  : |
             The SMILES string that defines molecule
-    InChIes :
+    calculation_type :
         ui-name : |
             type of the calculation
         short-hint : |

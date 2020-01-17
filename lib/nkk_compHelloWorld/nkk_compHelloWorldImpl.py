@@ -61,13 +61,23 @@ class nkk_compHelloWorld:
         #BEGIN run_nkk_compHelloWorld
         sim_dir = '~/../simulation'
         os.system('ls')
-
+        import pandas as pd
+        print('input:',params['Input_File'])
+        
         # Reads InChI and InChI-key from .csv file
-        with open("test3.csv") as f:
-             InChI_key = [row["InChI-Key"].split('InChIKey=')[1] for row in DictReader(f)] 
-             #print('InChI_key:',InChI_key)
-        with open("test3.csv") as f:
-             InChIes   = [row["InChI"] for row in DictReader(f)]
+        #with open(params['Input_File']) as f:
+             #InChI_key = [row["InChI-Key"].split('InChIKey=')[1] for row in DictReader(f)]
+             #InChI_key = [row["id"] for row in DictReader(f)] 
+        df = pd.read_csv(params['Input_File'], sep ='\t')
+        print(df)
+        InChI_key = df['id']
+        InChIes = df['structure']
+        print(InChI_key)
+        print(InChIes)
+            #print('InChI_key:',InChI_key)
+        
+#        with open(params['Input_File']) as f:
+#             InChIes   = [row["structure"] for row in DictReader(f)]
              #print('InChIes: ',InChIes)
 
         import inchi_to_submission as its
@@ -119,8 +129,8 @@ class nkk_compHelloWorld:
         
         report = KBaseReport(self.callback_url)
         report_info = report.create({'report':{'objects_created':[],
-                                               'text_message': params['InChI_key'],
-                                               'text_message':params['InChIes']},
+                                               'text_message': params['Input_File'],
+                                               'text_message':params['calculation_type']},
                                                'workspace_name': params['workspace_name']})
         output = {
             'report_name': report_info['name'],
